@@ -61,9 +61,15 @@ namespace VendorMachine
             }
             else
             {
-                //Proceed to sale
-                
                 var customerBalance = TotalValue(vendorMachine.CustomerCoins);
+                
+                //Requests with product shows a balance after it, to requests without product we need to enforce the balance before the NO_CHANGE
+                if(!request.Products.Any())
+                {
+                    output += "=" + customerBalance.ToString().Replace(",",".") + " ";
+                }                
+                
+                //Proceed to sale
                 
                 //Move all coins to from customercoins to machinecoins
                 MoveCoins(ref vendorMachine.CustomerCoins, ref vendorMachine.MachineCoins, customerBalance);
@@ -80,12 +86,6 @@ namespace VendorMachine
 
                 if(request.ChangeRequested)
                 {
-                    //Requests with product shows a balance after it, to requests without product we need to enforce the balance before the NO_CHANGE
-                    if(!request.Products.Any())
-                    {
-                        output += "=" + customerBalance.ToString().Replace(",",".") + " ";
-                    }
-                    
                     if(customerBalance == 0.00m)
                     {
                         output += "NO_CHANGE";

@@ -10,6 +10,7 @@ namespace VendorMachineTests
         {
         }
 
+        //Test simulating sample 1
         [Test]
         public void SampleTest1()
         {
@@ -19,6 +20,7 @@ namespace VendorMachineTests
             Assert.AreEqual("Coke =0.00", result);
         }
 
+        //Test simulating sample 2
         [Test]
         public void SampleTest2()
         {
@@ -28,6 +30,7 @@ namespace VendorMachineTests
             Assert.AreEqual("Pastelina =0.70 0.50 0.10 0.10", result);
         }
 
+        //Test simulating sample 3
         [Test]
         public void SampleTest3()
         {
@@ -37,6 +40,7 @@ namespace VendorMachineTests
             Assert.AreEqual("Pastelina =0.00 NO_CHANGE", result);
         }
 
+        //Test simulating sample 4
         [Test]
         public void SampleTest4()
         {
@@ -45,35 +49,5 @@ namespace VendorMachineTests
 
             Assert.AreEqual("Pastelina =0.70 Pastelina =0.40 Pastelina =0.10", result);
         }
-
-        [Test]
-        public void JustChange()
-        {
-            var logic = new VendorMachine.Logic();
-            var result = logic.Input("CHANGE");
-
-            Assert.AreEqual("=0.00 NO_CHANGE", result);
-        }
-
-        [Test]
-        public void Insert1ChangeSameTransaction()
-        {
-            var logic = new VendorMachine.Logic();
-            var result = logic.Input("1.00 CHANGE");
-
-            Assert.AreEqual("=1.00 1.00", result);
-        }
-
-        [Test]
-        public void Insert1ChangeDistinctTransactions()
-        {
-            var logic = new VendorMachine.Logic();
-            logic.Input("1.00");
-            var result = logic.Input("CHANGE");
-            
-            Assert.AreEqual("=1.00 1.00", result);
-        }
-
-
     }
 }
