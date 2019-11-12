@@ -70,8 +70,6 @@ namespace VendorMachine
                 //move change(diff between customercoins and value of requested products) coins to customercoins
                 MoveCoins(ref vendorMachine.MachineCoins, ref vendorMachine.CustomerCoins, customerBalance - TotalValue(request.Products));
 
-                var newCustomerBalance = TotalValue(vendorMachine.CustomerCoins);
-
                 foreach(var product in request.Products)
                 {
                     //create output PRODUCT and BALANCE
@@ -82,6 +80,12 @@ namespace VendorMachine
 
                 if(request.ChangeRequested)
                 {
+                    //Requests with product shows a balance after it, to requests without product we need to enforce the balance before the NO_CHANGE
+                    if(!request.Products.Any())
+                    {
+                        output += "=" + customerBalance.ToString().Replace(",",".") + " ";
+                    }
+                    
                     if(customerBalance == 0.00m)
                     {
                         output += "NO_CHANGE";

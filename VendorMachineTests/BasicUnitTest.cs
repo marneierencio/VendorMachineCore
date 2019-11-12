@@ -56,22 +56,22 @@ namespace VendorMachineTests
         }
 
         [Test]
-        public void Insert1Change1SameTransaction()
+        public void Insert1ChangeSameTransaction()
         {
             var logic = new VendorMachine.Logic();
             var result = logic.Input("1.00 CHANGE");
 
-            Assert.AreEqual("1.00", result);
+            Assert.AreEqual("=1.00 1.00", result);
         }
 
         [Test]
-        public void Insert1TransactionChange1Transaction()
+        public void Insert1ChangeDistinctTransactions()
         {
             var logic = new VendorMachine.Logic();
             logic.Input("1.00");
             var result = logic.Input("CHANGE");
             
-            Assert.AreEqual("=1.00 0.00", result);
+            Assert.AreEqual("=1.00 1.00", result);
         }
 
 
